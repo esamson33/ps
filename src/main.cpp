@@ -4,7 +4,7 @@
 #include <fstream>
 #include <iostream>
 #include <map>
-#include <set>
+//#include <set>
 
 #include "string_utils.hpp"
 
@@ -12,8 +12,6 @@ namespace fs = std::filesystem;
 
 using pid_vec = std::vector<pid_t>;
 using pid_map = std::multimap<pid_t, pid_t>;
-using child_set = std::set<uint32_t>;
-using child_map = std::map<uint32_t, child_set>;
 using str_map = std::map<std::string, std::string>;
 
 str_map get_proc_pid_status(fs::path const &p)
@@ -34,25 +32,14 @@ str_map get_proc_pid_status(fs::path const &p)
   return m;
 }
 
-void dump_child_map(child_map const &map)
-{
-  std::cout << "child map:\n";
-  for (auto&[k, v]: map) {
-    std::cout << k << ": [ ";
-    for (auto &i: v) {
-      std::cout << i << " ";
-    }
-    std::cout << "]\n";
-  }
-}
-
+/*
 void dump_index(pid_map const &map)
 {
   std::cout << "child map:\n";
   std::for_each(map.cbegin(), map.cend(), [](auto const &item) {
       std::cout << item.first << ": " << item.second << "\n";
   });
-}
+}*/
 
 void dump_pid_vec(pid_vec const &vec)
 {
@@ -74,6 +61,7 @@ uint32_t to_number(const char *str)
   }
 }
 
+/*
 void scan_children_(child_map &map)
 {
   fs::path proc("/proc");
@@ -90,7 +78,7 @@ void scan_children_(child_map &map)
       }
     }
   }
-}
+}*/
 
 std::vector<pid_t> get_children(pid_map const &pid_map_, pid_t pid)
 {
